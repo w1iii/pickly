@@ -3,6 +3,9 @@ import Link from "next/link";
 import CourtMapClient from "./court-map-client";
 import "./page.css";
 
+// Bacolod City, Philippines
+const BACOLOD_CENTER: [number, number] = [122.9491, 10.6676];
+
 export default async function CourtsPage() {
   const supabase = await createClient();
   const { data: courts } = await supabase
@@ -34,8 +37,13 @@ export default async function CourtsPage() {
               lat: c.lat,
               lng: c.lng,
               address: c.address,
+              num_courts: c.num_courts,
+              indoor: c.indoor,
+              surface_type: c.surface_type,
             }))}
             height="400px"
+            center={BACOLOD_CENTER}
+            zoom={12.5}
           />
         ) : (
           <div style={{ padding: "2rem", textAlign: "center", color: "var(--color-text-muted)" }}>

@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-const CourtMap = dynamic(() => import("@/components/court-map"), {
+const CourtMap3D = dynamic(() => import("@/components/court-map-3d"), {
   ssr: false,
   loading: () => (
     <div
@@ -12,12 +12,12 @@ const CourtMap = dynamic(() => import("@/components/court-map"), {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "var(--color-bg-tertiary)",
+        background: "var(--color-bg-secondary)",
         color: "var(--color-text-muted)",
         fontSize: "var(--text-sm)",
       }}
     >
-      Loading map...
+      Loading 3D map...
     </div>
   ),
 });
@@ -38,17 +38,17 @@ export default function CourtDetailMap({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "var(--color-bg-tertiary)",
+          background: "var(--color-bg-secondary)",
           borderRadius: "var(--radius-lg)",
           border: "1px solid var(--color-border)",
           color: "var(--color-text-muted)",
           fontSize: "var(--text-sm)",
         }}
       >
-        Loading map...
+        Loading 3D map...
       </div>
     );
   }
 
-  return <CourtMap courts={courts} height="300px" zoom={15} />;
+  return <CourtMap3D courts={courts} height="300px" zoom={15} />;
 }
