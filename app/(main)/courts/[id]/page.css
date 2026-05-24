@@ -1,0 +1,58 @@
+/* Court detail page styles */
+.court-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.court-detail-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.court-detail-name {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+}
+
+.court-detail-address {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+.court-detail-map {
+  height: 300px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.court-detail-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.court-detail-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.court-detail-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.court-detail-section {
+  margin-top: 1rem;
+}
+
+.court-detail-section h2 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}

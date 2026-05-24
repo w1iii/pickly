@@ -1,0 +1,17 @@
+/* Settings page styles */
+.settings-page {
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.settings-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}

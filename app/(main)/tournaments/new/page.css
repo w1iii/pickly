@@ -1,0 +1,23 @@
+/* New tournament page styles */
+.new-tournament-page {
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.new-tournament-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.new-tournament-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.new-tournament-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

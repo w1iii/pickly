@@ -1,0 +1,68 @@
+/* Onboarding page styles */
+.onboarding-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-secondary);
+  padding: 2rem 1rem;
+}
+
+.onboarding-card {
+  width: 100%;
+  max-width: 32rem;
+}
+
+.onboarding-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.onboarding-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.onboarding-subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+.onboarding-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.onboarding-skill-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.onboarding-skill-option {
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: var(--color-bg);
+  transition: all 0.15s ease;
+}
+
+.onboarding-skill-option:hover {
+  border-color: var(--color-primary-light);
+}
+
+.onboarding-skill-option.selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.onboarding-skill-option input {
+  display: none;
+}

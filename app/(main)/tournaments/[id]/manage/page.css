@@ -1,0 +1,39 @@
+/* Tournament manage page styles */
+.tournament-manage {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.tournament-manage-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+}
+
+.tournament-manage-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tournament-manage-section h2 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.tournament-manage-player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.tournament-manage-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}

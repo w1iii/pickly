@@ -1,0 +1,64 @@
+/* Manage games page styles */
+.manage-games-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.manage-games-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+}
+
+.manage-games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.manage-game-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.manage-game-info {
+  flex: 1;
+}
+
+.manage-game-meta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.25rem;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.manage-game-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.manage-requests-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.manage-request-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.manage-request-info {
+  flex: 1;
+}
+
+.manage-request-actions {
+  display: flex;
+  gap: 0.5rem;
+}

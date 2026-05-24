@@ -1,0 +1,25 @@
+/* Auth error page styles */
+.auth-error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-secondary);
+  padding: 2rem 1rem;
+}
+
+.auth-error-card {
+  text-align: center;
+  max-width: 28rem;
+}
+
+.auth-error-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.auth-error-message {
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+}

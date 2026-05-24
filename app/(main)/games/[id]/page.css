@@ -1,0 +1,89 @@
+/* Game detail page styles */
+.game-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.game-detail-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.game-detail-court {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+}
+
+.game-detail-meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.game-detail-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.game-detail-roster {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.game-detail-player {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.game-detail-player-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+}
+
+.game-detail-player-info {
+  flex: 1;
+}
+
+.game-detail-player-name {
+  font-weight: 500;
+  font-size: var(--text-sm);
+}
+
+.game-detail-player-skill {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.game-detail-player-host {
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.game-detail-notes {
+  padding: 1rem;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  white-space: pre-wrap;
+}

@@ -1,0 +1,23 @@
+/* New game page styles */
+.new-game-page {
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.new-game-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.new-game-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.new-game-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

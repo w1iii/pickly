@@ -1,0 +1,43 @@
+/* Tournaments page styles */
+.tournaments-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tournaments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tournaments-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+}
+
+.tournaments-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.tournament-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.15s ease;
+}
+
+.tournament-card:hover {
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+}
+
+.tournament-card-meta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
