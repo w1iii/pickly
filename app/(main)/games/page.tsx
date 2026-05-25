@@ -18,7 +18,12 @@ export default async function GamesPage({
     .limit(50);
 
   if (params.skill) {
-    query = query.eq("skill_min", params.skill);
+    // Show games where the selected skill falls within the game's range
+    query = query.lte("skill_min", params.skill).gte("skill_max", params.skill);
+  }
+
+  if (params.date) {
+    query = query.eq("date", params.date);
   }
 
   const { data: games } = await query;
