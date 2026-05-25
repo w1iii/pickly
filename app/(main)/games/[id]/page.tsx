@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase-server";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
+import Link from "next/link";
 import JoinRequestButton from "./join-button";
 import "./page.css";
 
@@ -12,7 +13,6 @@ export default async function GameDetailPage({
   const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
 
   const { data: game } = await supabase
     .from("games")
@@ -30,8 +30,8 @@ export default async function GameDetailPage({
   const acceptedPlayers = requests?.filter((r) => r.status === "accepted") || [];
   const pendingRequests = requests?.filter((r) => r.status === "pending") || [];
 
-  const isHost = game.host_id === user.id;
-  const userRequest = requests?.find((r) => r.player_id === user.id);
+  const isHost = user ? game.host_id === user.id : false;
+  const userRequest = user ? requests?.find((r) => r.player_id === user.id) : null;
 
   return (
     <div className="game-detail">
@@ -68,7 +68,13 @@ export default async function GameDetailPage({
       </div>
 
       {!isHost && game.status === "open" && game.current_count < game.max_players && !userRequest && (
-        <JoinRequestButton gameId={game.id} userId={user.id} />
+        user ? (
+          <JoinRequestButton gameId={game.id} userId={user.id} />
+        ) : (
+          <Link href={`/login?redirect=/games/${game.id}`} className="btn btn-primary w-full" style={{ textAlign: "center" }}>
+            Sign in to join
+          </Link>
+        )
       )}
 
       {userRequest && (
