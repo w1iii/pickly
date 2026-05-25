@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase-server";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import RegisterButton from "./register-button";
 import "./page.css";
@@ -67,8 +67,14 @@ export default async function TournamentDetailPage({
         )}
       </div>
 
-      {user && !isOrganizer && tournament.status === "registration_open" && !userRegistered && (
-        <RegisterButton tournamentId={tournament.id} userId={user.id} />
+      {!isOrganizer && tournament.status === "registration_open" && !userRegistered && (
+        user ? (
+          <RegisterButton tournamentId={tournament.id} userId={user.id} />
+        ) : (
+          <Link href={`/login?redirect=/tournaments/${tournament.id}`} className="btn btn-primary w-full" style={{ textAlign: "center" }}>
+            Sign in to register
+          </Link>
+        )
       )}
 
       {userRegistered && (
@@ -83,7 +89,7 @@ export default async function TournamentDetailPage({
         <Link href={`/tournaments/${id}/bracket`} className="btn btn-secondary">
           View bracket
         </Link>
-        {(isOrganizer || tournament.status === "registration_open") && (
+        {user && (isOrganizer || tournament.status === "registration_open") && (
           <Link href={`/tournaments/${id}/manage`} className="btn btn-secondary">
             {isOrganizer ? "Manage" : "View registrations"}
           </Link>
