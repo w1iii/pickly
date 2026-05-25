@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase-client";
 import "./page.css";
 
 const SKILLS = ["beginner", "3.0", "3.5", "4.0", "4.5", "5.0+"];
 
-export default function NewGamePage() {
+function NewGameForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const preselectedCourt = searchParams.get("court") || "";
@@ -168,5 +168,13 @@ export default function NewGamePage() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function NewGamePage() {
+  return (
+    <Suspense fallback={<div className="new-game-page"><p className="text-muted">Loading...</p></div>}>
+      <NewGameForm />
+    </Suspense>
   );
 }
