@@ -30,6 +30,14 @@ export default async function ProfilePage({
     .eq("organizer_id", id)
     .limit(10);
 
+  const { data: joinedGames } = await supabase
+    .from("match_requests")
+    .select("*, games!inner(*, courts(name))")
+    .eq("player_id", id)
+    .eq("status", "accepted")
+    .order("created_at", { ascending: false })
+    .limit(10);
+
   const { data: registrations } = await supabase
     .from("registrations")
     .select("*, tournaments(name)")
@@ -82,6 +90,22 @@ export default async function ProfilePage({
           </div>
         ) : (
           <p className="text-sm text-muted">No games hosted yet.</p>
+        )}
+      </section>
+
+      <section>
+        <h2 className="font-semibold mb-4">Games Played</h2>
+        {joinedGames && joinedGames.length > 0 ? (
+          <div className="profile-history">
+            {joinedGames.map((r: any) => (
+              <div key={r.id} className="card" style={{ padding: "1rem" }}>
+                <p className="font-medium text-sm">{r.games?.courts?.name}</p>
+                <p className="text-xs text-muted">{r.games?.date} — {r.games?.status}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-muted">No games played yet.</p>
         )}
       </section>
 
