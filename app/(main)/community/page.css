@@ -1,0 +1,107 @@
+.community-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.community-hero {
+  background: var(--color-primary);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 2rem;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.community-hero-title {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  font-family: var(--font-display);
+  margin-bottom: 0.5rem;
+}
+
+.community-hero-subtitle {
+  opacity: 0.85;
+  font-size: var(--text-base);
+  max-width: 560px;
+  margin: 0 auto 1.5rem;
+}
+
+.community-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .community-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.community-section-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  font-family: var(--font-display);
+  margin-bottom: 1rem;
+}
+
+.community-empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--color-text-secondary);
+}
+
+.community-empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.community-empty-state p {
+  font-size: var(--text-sm);
+  margin-bottom: 1rem;
+}
+
+.community-players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.community-player-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  transition: background 0.15s ease;
+}
+
+.community-player-card:hover {
+  background: var(--color-bg-secondary);
+}
+
+.community-player-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.community-player-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.community-player-detail {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  margin-top: 0.125rem;
+}
