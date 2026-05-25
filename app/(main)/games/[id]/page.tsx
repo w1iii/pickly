@@ -69,7 +69,7 @@ export default async function GameDetailPage({
 
       {!isHost && game.status === "open" && game.current_count < game.max_players && !userRequest && (
         user ? (
-          <JoinRequestButton gameId={game.id} userId={user.id} />
+          <JoinRequestButton gameId={game.id} />
         ) : (
           <Link href={`/login?redirect=/games/${game.id}`} className="btn btn-primary w-full" style={{ textAlign: "center" }}>
             Sign in to join
@@ -81,8 +81,12 @@ export default async function GameDetailPage({
         <div className="card">
           <p className="font-medium">Your request: <span className={`badge ${
             userRequest.status === "pending" ? "badge-warning" :
-            userRequest.status === "accepted" ? "badge-success" : ""
+            userRequest.status === "accepted" ? "badge-success" :
+            userRequest.status === "declined" ? "badge-danger" : ""
           }`}>{userRequest.status}</span></p>
+          {userRequest.status === "declined" && (
+            <p className="text-sm text-muted mt-1">The host declined your request. Browse other open games to join.</p>
+          )}
         </div>
       )}
 

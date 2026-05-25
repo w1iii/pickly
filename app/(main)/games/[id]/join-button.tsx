@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase-client";
+import { joinGame } from "@/lib/actions/join-game";
 
 export default function JoinRequestButton({
   gameId,
-  userId,
 }: {
   gameId: string;
-  userId: string;
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -19,12 +17,10 @@ export default function JoinRequestButton({
     setLoading(true);
     setError("");
 
-    const { error: reqError } = await createClient()
-      .from("match_requests")
-      .insert({ game_id: gameId, player_id: userId });
+    const result = await joinGame(gameId);
 
-    if (reqError) {
-      setError(reqError.message);
+    if (result.error) {
+      setError(result.error);
       setLoading(false);
       return;
     }

@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase-server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { createNotification } from "@/lib/notifications";
 
 export async function POST(request: Request) {
   const formData = await request.formData();
@@ -16,7 +17,7 @@ export async function POST(request: Request) {
   // Verify the user is the host of the game
   const { data: matchRequest } = await supabase
     .from("match_requests")
-    .select("*, games!inner(host_id, current_count, max_players)")
+    .select("*, games!inner(*, courts(name)), player:profiles!player_id(name)")
     .eq("id", requestId)
     .single();
 
@@ -24,8 +25,10 @@ export async function POST(request: Request) {
     return Response.json({ error: "Forbidden" }, { status: 403 });
   }
 
+  const game = matchRequest.games as any;
+  const courtName = game.courts?.name || "Unknown court";
+
   if (action === "accepted") {
-    const game = matchRequest.games as any;
     if (game.current_count >= game.max_players) {
       return Response.json({ error: "Game is full" }, { status: 400 });
     }
@@ -40,18 +43,32 @@ export async function POST(request: Request) {
       .update({ current_count: game.current_count + 1 })
       .eq("id", matchRequest.game_id);
 
-    // Check if game is now full
     if (game.current_count + 1 >= game.max_players) {
       await supabase
         .from("games")
         .update({ status: "full" })
         .eq("id", matchRequest.game_id);
     }
+
+    await createNotification({
+      userId: matchRequest.player_id,
+      type: "request_accepted",
+      title: `Your request to join ${courtName} was accepted!`,
+      body: `${game.date} at ${game.start_time?.slice(0, 5)}`,
+      link: `/games/${matchRequest.game_id}`,
+    });
   } else {
     await supabase
       .from("match_requests")
       .update({ status: "declined" })
       .eq("id", requestId);
+
+    await createNotification({
+      userId: matchRequest.player_id,
+      type: "request_declined",
+      title: `Your request to join ${courtName} was declined`,
+      link: "/games",
+    });
   }
 
   revalidatePath("/games/manage");

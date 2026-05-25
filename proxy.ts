@@ -15,6 +15,7 @@ const PROTECTED_EXACT = new Set([
   "/games/new",
   "/games/manage",
   "/tournaments/new",
+  "/notifications",
 ]);
 
 const PROTECTED_PATTERNS = [
