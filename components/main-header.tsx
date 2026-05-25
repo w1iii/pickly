@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase-client";
 import { signOut } from "@/lib/auth-actions";
+import NotificationDropdown from "./notification-dropdown";
 
 export default function MainHeader() {
   const [user, setUser] = useState<any | null>(null);
@@ -41,9 +42,7 @@ export default function MainHeader() {
 
           {loading ? null : user ? (
             <>
-              <button className="main-icon-btn" aria-label="Notifications">
-                <span className="material-symbols-outlined">notifications</span>
-              </button>
+              <NotificationDropdown />
               <Link href="/settings" className="main-avatar-link" aria-label="Account">
                 <div className="main-avatar">{initials}</div>
               </Link>
