@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase-server";
+import { createAdminClient } from "@/lib/supabase-admin";
 
+// Uses admin client (service_role) to bypass RLS — inserts are always for a different user
 export async function createNotification(params: {
   userId: string;
   type: "join_request" | "request_accepted" | "request_declined" | "tournament_update";
@@ -7,7 +9,7 @@ export async function createNotification(params: {
   body?: string;
   link?: string;
 }) {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { error } = await supabase.from("notifications").insert({
     user_id: params.userId,
@@ -22,6 +24,7 @@ export async function createNotification(params: {
   }
 }
 
+// Uses regular client — RLS policies handle per-user access
 export async function getUnreadCount(userId: string): Promise<number> {
   const supabase = await createClient();
 
