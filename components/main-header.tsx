@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase-client";
-import { signOut } from "@/lib/auth-actions";
 import NotificationDropdown from "./notification-dropdown";
+import UserDropdown from "./user-dropdown";
 
 export default function MainHeader() {
   const [user, setUser] = useState<any | null>(null);
@@ -43,12 +43,7 @@ export default function MainHeader() {
           {loading ? null : user ? (
             <>
               <NotificationDropdown />
-              <Link href="/settings" className="main-avatar-link" aria-label="Account">
-                <div className="main-avatar">{initials}</div>
-              </Link>
-              <form action={signOut}>
-                <button type="submit" className="main-signout-btn">Sign out</button>
-              </form>
+              <UserDropdown initials={initials} />
             </>
           ) : (
             <>
