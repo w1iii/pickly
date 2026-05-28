@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase-client";
 import "./page.css";
 
@@ -72,6 +73,7 @@ export default function NewTournamentPage() {
 
   return (
     <div className="new-tournament-page">
+      <Link href="/tournaments" className="btn btn-ghost btn-sm" style={{ marginBottom: "0.5rem" }}>&larr; Back</Link>
       <h1 className="new-tournament-title">Create Tournament</h1>
 
       <form onSubmit={handleSubmit} className="new-tournament-form card">

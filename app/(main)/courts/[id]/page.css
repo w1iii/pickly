@@ -7,13 +7,15 @@
 
 .court-detail-header {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .court-detail-name {
   font-size: var(--text-2xl);
   font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-primary);
 }
 
 .court-detail-address {
@@ -53,6 +55,8 @@
 
 .court-detail-section h2 {
   font-size: var(--text-lg);
-  font-weight: 600;
+  font-weight: 700;
+  font-family: var(--font-display);
   margin-bottom: 1rem;
+  color: var(--color-text);
 }

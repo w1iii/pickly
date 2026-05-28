@@ -16,6 +16,8 @@
 .tournament-detail-name {
   font-size: var(--text-2xl);
   font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-primary);
 }
 
 .tournament-detail-meta {
@@ -50,7 +52,8 @@
   gap: 0.75rem;
   padding: 0.75rem;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-white);
 }
 
 .tournament-player-avatar {
@@ -61,9 +64,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-primary);
   font-size: var(--text-sm);
+  font-family: var(--font-body);
 }
 
 .tournament-detail-actions {

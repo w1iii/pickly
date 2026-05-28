@@ -24,11 +24,14 @@
   font-size: var(--text-2xl);
   font-weight: 700;
   color: var(--color-primary);
+  font-family: var(--font-body);
 }
 
 .profile-name {
   font-size: var(--text-2xl);
   font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-primary);
 }
 
 .profile-detail {
@@ -42,6 +45,7 @@
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-weight: 600;
 }
 
 .profile-history {

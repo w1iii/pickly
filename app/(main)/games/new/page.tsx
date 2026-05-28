@@ -1,7 +1,8 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase-client";
 import "./page.css";
 
@@ -12,6 +13,7 @@ function NewGameForm() {
   const searchParams = useSearchParams();
   const preselectedCourt = searchParams.get("court") || "";
 
+  const [courts, setCourts] = useState<{ id: string; name: string; address: string }[]>([]);
   const [formData, setFormData] = useState({
     court_id: preselectedCourt,
     date: "",
@@ -23,6 +25,17 @@ function NewGameForm() {
   });
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase
+      .from("courts")
+      .select("id, name, address")
+      .order("name")
+      .then(({ data }) => {
+        if (data) setCourts(data);
+      });
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -62,21 +75,25 @@ function NewGameForm() {
 
   return (
     <div className="new-game-page">
+      <Link href="/games" className="btn btn-ghost btn-sm" style={{ marginBottom: "0.5rem" }}>&larr; Back</Link>
       <h1 className="new-game-title">Post a Game</h1>
 
       <form onSubmit={handleSubmit} className="new-game-form card">
         <div className="form-group">
           <label htmlFor="court_id" className="form-label">Court</label>
-          <input
+          <select
             id="court_id"
             name="court_id"
-            type="text"
-            className="form-input"
-            placeholder="Court ID (search courts page)"
+            className="form-select"
             value={formData.court_id}
             onChange={(e) => setFormData({ ...formData, court_id: e.target.value })}
             required
-          />
+          >
+            <option value="" disabled>Select a court</option>
+            {courts.map((c) => (
+              <option key={c.id} value={c.id}>{c.name} — {c.address}</option>
+            ))}
+          </select>
         </div>
 
         <div className="new-game-form-row">

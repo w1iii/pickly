@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase-server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import JoinRequestButton from "./join-button";
+import { LeaveGameButton, RemovePlayerButton } from "@/components/roster-actions";
 import "./page.css";
 
 export default async function GameDetailPage({
@@ -30,11 +31,16 @@ export default async function GameDetailPage({
   const acceptedPlayers = requests?.filter((r) => r.status === "accepted") || [];
   const pendingRequests = requests?.filter((r) => r.status === "pending") || [];
 
+  // Host is always a confirmed participant
+  const hostInAccepted = acceptedPlayers.some((r) => r.player_id === game.host_id);
+  const rosterCount = hostInAccepted ? acceptedPlayers.length : acceptedPlayers.length + 1;
+
   const isHost = user ? game.host_id === user.id : false;
   const userRequest = user ? requests?.find((r) => r.player_id === user.id) : null;
 
   return (
     <div className="game-detail">
+      <Link href="/games" className="btn btn-ghost btn-sm" style={{ alignSelf: "flex-start" }}>&larr; Back</Link>
       <div className="game-detail-header">
         <h1 className="game-detail-court">{game.courts?.name}</h1>
         <div className="game-detail-meta">
@@ -67,12 +73,16 @@ export default async function GameDetailPage({
         </div>
       </div>
 
-      {!isHost && game.status === "open" && game.current_count < game.max_players && !userRequest && (
+      {!isHost && !userRequest && (
         user ? (
-          <JoinRequestButton gameId={game.id} />
+          game.current_count < game.max_players ? (
+            <JoinRequestButton gameId={game.id} isFull={false} />
+          ) : (
+            <JoinRequestButton gameId={game.id} isFull={true} />
+          )
         ) : (
           <Link href={`/login?redirect=/games/${game.id}`} className="btn btn-primary w-full" style={{ textAlign: "center" }}>
-            Sign in to join
+            Sign in to {game.current_count < game.max_players ? "join" : "join waitlist"}
           </Link>
         )
       )}
@@ -82,10 +92,19 @@ export default async function GameDetailPage({
           <p className="font-medium">Your request: <span className={`badge ${
             userRequest.status === "pending" ? "badge-warning" :
             userRequest.status === "accepted" ? "badge-success" :
-            userRequest.status === "declined" ? "badge-danger" : ""
+            userRequest.status === "declined" ? "badge-danger" :
+            userRequest.status === "waitlisted" ? "badge-info" : ""
           }`}>{userRequest.status}</span></p>
           {userRequest.status === "declined" && (
             <p className="text-sm text-muted mt-1">The host declined your request. Browse other open games to join.</p>
+          )}
+          {userRequest.status === "waitlisted" && (
+            <p className="text-sm text-muted mt-1">You're on the waitlist. You'll be auto-accepted if a spot opens up.</p>
+          )}
+          {userRequest.status === "accepted" && !isHost && (
+            <div style={{ marginTop: "0.5rem" }}>
+              <LeaveGameButton gameId={game.id} />
+            </div>
           )}
         </div>
       )}
@@ -99,30 +118,47 @@ export default async function GameDetailPage({
 
       <div>
         <h2 className="font-semibold mb-2">
-          Roster ({acceptedPlayers.length} / {game.max_players})
+          Roster ({rosterCount} / {game.max_players})
         </h2>
         <div className="game-detail-roster">
-          {acceptedPlayers.length === 0 && (
-            <p className="text-sm text-muted">No players confirmed yet.</p>
-          )}
-          {acceptedPlayers.map((req: any) => (
-            <div key={req.id} className="game-detail-player">
-              <div className="game-detail-player-avatar">
-                {req.player?.name?.charAt(0) || "?"}
-              </div>
-              <div className="game-detail-player-info">
-                <p className="game-detail-player-name">
-                  {req.player?.name}
-                  {req.player_id === game.host_id && (
-                    <span className="game-detail-player-host"> (Host)</span>
-                  )}
-                </p>
-                <p className="game-detail-player-skill">
-                  Level: {req.player?.skill_level || "Not set"}
-                </p>
-              </div>
+          {/* Host is always in the roster */}
+          <div key="host" className="game-detail-player">
+            <div className="game-detail-player-avatar">
+              {game.host?.name?.charAt(0) || "?"}
             </div>
-          ))}
+            <div className="game-detail-player-info">
+              <p className="game-detail-player-name">
+                {game.host?.name}
+                <span className="game-detail-player-host"> (Host)</span>
+              </p>
+              <p className="game-detail-player-skill">
+                Level: {game.host?.skill_level || "Not set"}
+              </p>
+            </div>
+          </div>
+          {/* Other accepted players (exclude host if they also have a request) */}
+          {acceptedPlayers.filter((r) => r.player_id !== game.host_id).length > 0 ? (
+            acceptedPlayers.filter((r) => r.player_id !== game.host_id).map((req: any) => (
+              <div key={req.id} className="game-detail-player">
+                <div className="game-detail-player-avatar">
+                  {req.player?.name?.charAt(0) || "?"}
+                </div>
+                <div className="game-detail-player-info">
+                  <p className="game-detail-player-name">{req.player?.name}</p>
+                  <p className="game-detail-player-skill">
+                    Level: {req.player?.skill_level || "Not set"}
+                  </p>
+                </div>
+                {isHost && (
+                  <RemovePlayerButton gameId={game.id} playerId={req.player_id} />
+                )}
+              </div>
+            ))
+          ) : (
+            rosterCount <= 1 && (
+              <p className="text-sm text-muted">No other players confirmed yet.</p>
+            )
+          )}
         </div>
       </div>
 

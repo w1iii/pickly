@@ -50,5 +50,9 @@ export default function CourtDetailMap({
     );
   }
 
-  return <CourtMap3D courts={courts} height="300px" zoom={15} />;
+  const center: [number, number] = courts.length === 1
+    ? [courts[0].lng, courts[0].lat]
+    : [122.9491, 10.6676];
+
+  return <CourtMap3D courts={courts} height="300px" zoom={15} center={center} />;
 }

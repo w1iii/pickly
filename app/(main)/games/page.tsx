@@ -31,7 +31,10 @@ export default async function GamesPage({
   return (
     <div className="games-page">
       <div className="games-header">
-        <h1 className="games-title">Open Games</h1>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <Link href="/dashboard" className="btn btn-ghost btn-sm">&larr;</Link>
+          <h1 className="games-title">Open Games</h1>
+        </div>
         <Link href="/games/new" className="btn btn-primary">
           Post a game
         </Link>

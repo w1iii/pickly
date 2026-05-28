@@ -30,9 +30,18 @@ export default async function CourtDetailPage({
 
   return (
     <div className="court-detail">
+      <Link href="/courts" className="btn btn-ghost btn-sm" style={{  alignSelf: "flex-start" }}>
+        &larr; Back to courts
+      </Link>
+
       <div className="court-detail-header">
-        <h1 className="court-detail-name">{court.name}</h1>
-        <p className="court-detail-address">{court.address}</p>
+        <div>
+          <h1 className="court-detail-name">{court.name}</h1>
+          <p className="court-detail-address">{court.address}</p>
+        </div>
+        <Link href={`/games/new?court=${court.id}`} className="btn btn-primary">
+          Post a game here
+        </Link>
       </div>
 
       <div className="court-detail-map">
@@ -78,18 +87,9 @@ export default async function CourtDetailPage({
         )}
       </div>
 
-      <div className="court-detail-actions">
-        <Link href={`/games/new?court=${court.id}`} className="btn btn-primary">
-          Post a game here
-        </Link>
-        <Link href={`/tournaments/new?court=${court.id}`} className="btn btn-secondary">
-          Post a tournament
-        </Link>
-      </div>
-
-      {games && games.length > 0 && (
-        <div className="court-detail-section">
-          <h2>Upcoming Games</h2>
+      <div className="court-detail-section">
+        <h2>Available Games</h2>
+        {games && games.length > 0 ? (
           <div style={{ display: "grid", gap: "1rem" }}>
             {games.map((game: any) => (
               <Link
@@ -110,8 +110,10 @@ export default async function CourtDetailPage({
               </Link>
             ))}
           </div>
-        </div>
-      )}
+        ) : (
+          <p className="text-sm text-muted">No upcoming games at this court yet.</p>
+        )}
+      </div>
     </div>
   );
 }

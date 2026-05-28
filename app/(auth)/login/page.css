@@ -1,13 +1,4 @@
 /* Login page styles */
-.login-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-bg-secondary);
-  padding: 2rem 1rem;
-}
-
 .login-card {
   width: 100%;
   max-width: 28rem;
@@ -23,6 +14,7 @@
   font-weight: 700;
   color: var(--color-primary);
   margin-bottom: 0.5rem;
+  font-family: var(--font-display);
 }
 
 .login-subtitle {

@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { joinGame } from "@/lib/actions/join-game";
+import { joinGame, joinWaitlist } from "@/lib/actions/join-game";
 
 export default function JoinRequestButton({
   gameId,
+  isFull,
 }: {
   gameId: string;
+  isFull: boolean;
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -17,7 +19,7 @@ export default function JoinRequestButton({
     setLoading(true);
     setError("");
 
-    const result = await joinGame(gameId);
+    const result = isFull ? await joinWaitlist(gameId) : await joinGame(gameId);
 
     if (result.error) {
       setError(result.error);
@@ -35,7 +37,7 @@ export default function JoinRequestButton({
         className="btn btn-primary w-full"
         disabled={loading}
       >
-        {loading ? "Requesting..." : "Request to join"}
+        {loading ? "Please wait..." : isFull ? "Join waitlist" : "Request to join"}
       </button>
       {error && <p className="form-error mt-1">{error}</p>}
     </div>

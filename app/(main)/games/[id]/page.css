@@ -16,6 +16,8 @@
 .game-detail-court {
   font-size: var(--text-2xl);
   font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-primary);
 }
 
 .game-detail-meta {
@@ -44,7 +46,8 @@
   gap: 0.75rem;
   padding: 0.75rem;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-white);
 }
 
 .game-detail-player-avatar {
@@ -55,9 +58,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-primary);
   font-size: var(--text-sm);
+  font-family: var(--font-body);
 }
 
 .game-detail-player-info {
@@ -65,7 +69,7 @@
 }
 
 .game-detail-player-name {
-  font-weight: 500;
+  font-weight: 600;
   font-size: var(--text-sm);
 }
 
@@ -76,14 +80,14 @@
 
 .game-detail-player-host {
   font-size: var(--text-xs);
-  color: var(--color-primary);
-  font-weight: 500;
+  color: var(--color-accent);
+  font-weight: 600;
 }
 
 .game-detail-notes {
   padding: 1rem;
   background: var(--color-bg-secondary);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   font-size: var(--text-sm);
   white-space: pre-wrap;
 }

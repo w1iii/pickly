@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase-server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import DeleteGameButton from "@/components/delete-game-button";
 import "./page.css";
 
 export default async function ManageGamesPage() {
@@ -25,6 +26,7 @@ export default async function ManageGamesPage() {
 
   return (
     <div className="manage-games-page">
+      <Link href="/games" className="btn btn-ghost btn-sm" style={{ marginBottom: "0.5rem" }}>&larr; Back</Link>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h1 className="manage-games-title">Manage Games</h1>
         <Link href="/games/new" className="btn btn-primary">Post a game</Link>
@@ -65,6 +67,7 @@ export default async function ManageGamesPage() {
                   <Link href={`/games/${game.id}`} className="btn btn-ghost btn-sm">
                     View
                   </Link>
+                  <DeleteGameButton gameId={game.id} />
                 </div>
               </div>
             );

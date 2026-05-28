@@ -8,6 +8,8 @@
 .manage-games-title {
   font-size: var(--text-2xl);
   font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-primary);
 }
 
 .manage-games-list {
@@ -51,7 +53,8 @@
   align-items: center;
   padding: 1rem;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-white);
 }
 
 .manage-request-info {

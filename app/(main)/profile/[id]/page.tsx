@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase-server";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import "./page.css";
 
 export default async function ProfilePage({
@@ -46,6 +47,7 @@ export default async function ProfilePage({
 
   return (
     <div className="profile-page">
+      <Link href="/dashboard" className="btn btn-ghost btn-sm" style={{ marginBottom: "1rem", alignSelf: "flex-start" }}>&larr; Back</Link>
       <div className="profile-header">
         <div className="profile-avatar">
           {profile.name?.charAt(0) || "?"}

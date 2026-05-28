@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase-server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import NotificationList from "./notification-list";
 import "./page.css";
 
@@ -17,6 +18,7 @@ export default async function NotificationsPage() {
 
   return (
     <div className="notif-page">
+      <Link href="/dashboard" className="btn btn-ghost btn-sm" style={{ marginBottom: "0.5rem" }}>&larr; Back</Link>
       <h1 className="notif-page-title">Notifications</h1>
       <NotificationList initial={notifications ?? []} />
     </div>

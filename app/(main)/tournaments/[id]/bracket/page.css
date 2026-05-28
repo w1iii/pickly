@@ -16,6 +16,8 @@
 .bracket-title {
   font-size: var(--text-2xl);
   font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-primary);
 }
 
 .bracket-visual {
@@ -39,14 +41,16 @@
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-family: var(--font-body);
 }
 
 .bracket-match {
   padding: 1rem;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-white);
   min-width: 180px;
+  box-shadow: var(--shadow-sm);
 }
 
 .bracket-match-players {
@@ -93,4 +97,5 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-size: var(--text-sm);
+  font-family: var(--font-body);
 }

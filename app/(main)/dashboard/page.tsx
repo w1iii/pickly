@@ -73,12 +73,36 @@ export default async function DashboardPage() {
     .eq("id", user.id)
     .single();
 
-  const { data: myGames } = await supabase
+  // Games user hosts
+  const { data: hosted } = await supabase
     .from("games")
     .select("*, courts(name)")
     .eq("host_id", user.id)
     .order("date", { ascending: true })
-    .limit(5);
+    .limit(10);
+
+  // Games user joined via accepted request
+  const { data: joinedReqs } = await supabase
+    .from("match_requests")
+    .select("game_id")
+    .eq("player_id", user.id)
+    .eq("status", "accepted");
+
+  const joinedGameIds = joinedReqs?.map((r) => r.game_id) || [];
+  const { data: joined } = joinedGameIds.length > 0
+    ? await supabase
+        .from("games")
+        .select("*, courts(name)")
+        .in("id", joinedGameIds)
+        .order("date", { ascending: true })
+    : { data: [] };
+
+  // Merge, deduplicate, sort, limit
+  const seen = new Set<string>();
+  const myGames = [...(hosted || []), ...(joined || [])]
+    .filter((g) => (seen.has(g.id) ? false : (seen.add(g.id), true)))
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(0, 5);
 
   return (
     <div className="dashboard-page">
@@ -129,7 +153,7 @@ export default async function DashboardPage() {
           </div>
           <div className="dashboard-grid">
             {myGames.map((game: any) => (
-              <Link key={game.id} href={`/games/manage`} className="card" style={{ textDecoration: "none", color: "inherit", display: "block" }}>
+              <Link key={game.id} href={`/games/${game.id}`} className="card" style={{ textDecoration: "none", color: "inherit", display: "block" }}>
                 <div className="card-header">
                   <h3 className="card-title">{game.courts?.name || "Unknown court"}</h3>
                   <span className={`badge ${game.status === "open" ? "badge-success" : game.status === "full" ? "badge-warning" : ""}`}>

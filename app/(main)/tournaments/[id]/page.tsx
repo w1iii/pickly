@@ -32,6 +32,7 @@ export default async function TournamentDetailPage({
 
   return (
     <div className="tournament-detail">
+      <Link href="/tournaments" className="btn btn-ghost btn-sm" style={{ marginBottom: "1rem", alignSelf: "flex-start" }}>&larr; Back</Link>
       <div className="tournament-detail-header">
         <h1 className="tournament-detail-name">{tournament.name}</h1>
         <div className="tournament-detail-meta">

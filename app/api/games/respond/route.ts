@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase-server";
+import { createAdminClient } from "@/lib/supabase-admin";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createNotification } from "@/lib/notifications";
@@ -58,6 +59,8 @@ export async function POST(request: Request) {
       link: `/games/${matchRequest.game_id}`,
     });
   } else {
+    const admin = createAdminClient();
+
     await supabase
       .from("match_requests")
       .update({ status: "declined" })
@@ -69,6 +72,44 @@ export async function POST(request: Request) {
       title: `Your request to join ${courtName} was declined`,
       link: "/games",
     });
+
+    // Auto-accept the oldest waitlisted player
+    const { data: waitlisted } = await supabase
+      .from("match_requests")
+      .select("id, player_id")
+      .eq("game_id", matchRequest.game_id)
+      .eq("status", "waitlisted")
+      .order("created_at", { ascending: true })
+      .limit(1)
+      .maybeSingle();
+
+    if (waitlisted && game.current_count < game.max_players) {
+      await supabase
+        .from("match_requests")
+        .update({ status: "accepted" })
+        .eq("id", waitlisted.id);
+
+      await supabase
+        .from("games")
+        .update({ current_count: game.current_count + 1 })
+        .eq("id", matchRequest.game_id);
+
+      const newCount = game.current_count + 1;
+      if (newCount >= game.max_players) {
+        await supabase
+          .from("games")
+          .update({ status: "full" })
+          .eq("id", matchRequest.game_id);
+      }
+
+      await createNotification({
+        userId: waitlisted.player_id,
+        type: "waitlist_accepted",
+        title: `A spot opened up at ${courtName}!`,
+        body: `You were auto-accepted from the waitlist. ${game.date} at ${game.start_time?.slice(0, 5)}`,
+        link: `/games/${matchRequest.game_id}`,
+      });
+    }
   }
 
   revalidatePath("/games/manage");

@@ -18,14 +18,6 @@ export default async function CourtsPage() {
     <div className="courts-page">
       <div className="courts-header">
         <h1 className="courts-title">Courts</h1>
-        <div style={{ display: "flex", gap: "0.75rem" }}>
-          <Link href="/games/new" className="btn btn-primary">
-            Post a game
-          </Link>
-          <Link href="/tournaments/new" className="btn btn-secondary">
-            Create tournament
-          </Link>
-        </div>
       </div>
 
       <div className="courts-map">

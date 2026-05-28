@@ -1,13 +1,4 @@
 /* Onboarding page styles */
-.onboarding-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-bg-secondary);
-  padding: 2rem 1rem;
-}
-
 .onboarding-card {
   width: 100%;
   max-width: 32rem;
@@ -21,6 +12,8 @@
 .onboarding-title {
   font-size: var(--text-2xl);
   font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-primary);
   margin-bottom: 0.5rem;
 }
 
@@ -49,7 +42,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-md);
   cursor: pointer;
-  background: var(--color-bg);
+  background: var(--color-surface-white);
   transition: all 0.15s ease;
 }
 
